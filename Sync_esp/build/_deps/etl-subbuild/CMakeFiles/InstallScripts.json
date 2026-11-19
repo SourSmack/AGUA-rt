@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/sourish/AGUA-Uart/Sync_esp/build/_deps/etl-subbuild/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
