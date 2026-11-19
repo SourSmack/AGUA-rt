@@ -1,4 +1,3 @@
-#include "SynchEsp.hpp"
 
 template<class Message_t>
 SynchEsp<Message_t>::SynchEsp(uart_config_t p_uartCfg,
