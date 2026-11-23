@@ -12,7 +12,7 @@
 template<
     class Message_t
 >
-class SynchEsp : Uart<SyncEsp> {
+class SynchEsp : Uart<SynchEsp> {
 private:
     uart_config_t uartCfg;
     uart_port_t uartNum;
