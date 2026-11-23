@@ -24,7 +24,7 @@ template<
     class Courier_t
 >
 bool SynchEsp<Message_t, AnswerBuffSize, Courier_t>::recieve(Message_t * destination) {
-    check();
+    verifyCourier();
     if (!destination) return false;
     if (!answerBuffer.available()) return false;
     *destination = answerBuffer.front();

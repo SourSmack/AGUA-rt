@@ -27,6 +27,16 @@ private:
 
     etl::circular_buffer<Message_t, AnswerBuffSize> answerBuffer{};
 
+
+    void verifyCourier(){
+        auto result = answerCourier.verifyStatus();
+        /* 
+           check whether a failure happened
+
+
+         */
+    }
+
 public:
     SynchEsp(uart_config_t p_uartCfg,
              uart_port_t p_uartNum,
