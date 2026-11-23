@@ -18,7 +18,7 @@ private:
     uart_port_t uartNum;
     int rxPin{ 0 };
     int txPin{ 0 };
-    Courier<SynchEsp> &answerCourier;
+    Courier<SynchEsp<Message_t>> &answerCourier;
     uint16_t messageSize{ 0 };
     uint16_t answerBuffSize{ 0 };
 
