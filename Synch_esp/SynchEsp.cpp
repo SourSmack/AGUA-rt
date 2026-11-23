@@ -1,12 +1,23 @@
 
-template<class Message_t>
-SynchEsp<Message_t>::SynchEsp(uart_config_t p_uartCfg,
-                              uart_port_t p_uartNum,
-                              int p_rxPin,
-                              int p_txPin,
-                              Courier<SynchEsp> &p_answerCourier,
-                              uint16_t p_messageSize,
-                              uint16_t p_answerBuffSize)
+template<
+    class Message_t, 
+    class TaskHandle,
+    class TransportDataFunc,
+    class RecieveCondition, 
+    class TransmitCondition 
+>
+SynchEsp<Message_t, TaskHandle, TransportDataFunc, RecieveCondition, TransmitCondition>::SynchEsp(
+    uart_config_t p_uartCfg,
+    uart_port_t p_uartNum,
+    int p_rxPin,
+    int p_txPin,
+    Courier<TaskHandle,
+            SynchEsp<Message_t, TaskHandle, TransportDataFunc, RecieveCondition, TransmitCondition>,
+            TransportDataFunc,
+            RecieveCondition,
+            TransmitCondition> &p_answerCourier,
+    uint16_t p_messageSize,
+    uint16_t p_answerBuffSize)
     : uartCfg(p_uartCfg),
       uartNum(p_uartNum),
       rxPin(p_rxPin),
@@ -16,8 +27,14 @@ SynchEsp<Message_t>::SynchEsp(uart_config_t p_uartCfg,
       answerCourier(p_answerCourier)
 {}
 
-template<class Message_t>
-bool SynchEsp<Message_t>::recieve(Message_t * destination) {
+template<
+    class Message_t, 
+    class TaskHandle,
+    class TransportDataFunc,
+    class RecieveCondition, 
+    class TransmitCondition 
+>
+bool SynchEsp<Message_t, TaskHandle, TransportDataFunc, RecieveCondition, TransmitCondition>::recieve(Message_t * destination) {
     check();
     if (!destination) return false;
     if (!answerBuffer.available()) return false;
