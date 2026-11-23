@@ -10,42 +10,30 @@
 #include "baseUart.hpp"
 
 template<
-    class Message_t, 
-    class TaskHandle ,
-    class TransportDataFunc,
-    class RecieveCondition , 
-    class TransmitCondition 
+    class Message_t,
+    size_t AnswerBuffSize,
+    class Courier_t
 >
-class SynchEsp : Uart<SynchEsp<Message_t, TaskHandle, TransportDataFunc, RecieveCondition, TransmitCondition>> {
+class SynchEsp : Uart<SynchEsp<Message_t, AnswerBuffSize, Courier_t>> {
 private:
     uart_config_t uartCfg;
     uart_port_t uartNum;
     int rxPin{ 0 };
     int txPin{ 0 };
 
-    Courier< TaskHandle , 
-             SynchEsp<Message_t, TaskHandle, TransportDataFunc, RecieveCondition, TransmitCondition>   , 
-             TransportDataFunc ,
-             RecieveCondition , 
-             TransmitCondition > &answerCourier;
+    Courier_t &answerCourier;
 
     uint16_t messageSize{ 0 };
-    uint16_t answerBuffSize{ 0 };
 
-    etl::circular_buffer<Message_t, answerBuffSize> answerBuffer{};
+    etl::circular_buffer<Message_t, AnswerBuffSize> answerBuffer{};
 
 public:
     SynchEsp(uart_config_t p_uartCfg,
              uart_port_t p_uartNum,
              int p_rxPin,
              int p_txPin,
-             Courier<TaskHandle,
-                     SynchEsp<Message_t, TaskHandle, TransportDataFunc, RecieveCondition, TransmitCondition>,
-                     TransportDataFunc,
-                     RecieveCondition,
-                     TransmitCondition> &p_answerCourier,
-             uint16_t p_messageSize,
-             uint16_t p_answerBuffSize);
+             Courier_t &p_answerCourier,
+             uint16_t p_messageSize);
 
     bool recieve(Message_t * destination);
 };
